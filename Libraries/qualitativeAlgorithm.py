@@ -186,7 +186,7 @@ def indicazioni(minPath):
 
                     aux = ['turn slightly left ', 0, [testoNomeStanza]]
 
-            elif angolo > 67.5 and angolo <= 200:
+            elif angolo > 67.5 and angolo <= 112.5:
 
                 if segno > 0:
                     aux = ['turn right ', 0, ['']]
