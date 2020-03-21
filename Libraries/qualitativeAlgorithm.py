@@ -8,7 +8,6 @@ from tkinter.ttk import *
 from tkinter import messagebox
 from random import *
 
-
 nodes_room = []
 totalpath = []
 a = []
