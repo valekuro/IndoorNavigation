@@ -347,7 +347,7 @@ if __name__ == "__main__":
         # for edge in to_totalpath:
         #     totalpath.add_edge(edge[0], edge[1])
 
-        #tmp=nx.Graph()
+        tmp=nx.Graph()
 
         for edge in to_totalpath:
              totalpath.add_edge(edge[0], edge[1])
