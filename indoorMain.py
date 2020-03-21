@@ -350,7 +350,7 @@ if __name__ == "__main__":
         tmp=nx.Graph()
 
         for edge in to_totalpath:
-             tmp.add_edge(edge[0], edge[1])
+             totalpath.add_edge(edge[0], edge[1])
 
 
 # filter visibility graph throught buffers on euc_rooms
@@ -385,7 +385,7 @@ if __name__ == "__main__":
 
         for edge in ondelete:
             # print(ind)
-            tmp.remove_edge(edge[0], edge[1])
+            totalpath.remove_edge(edge[0], edge[1])
 
 # delete nodes not achievable,main door is the firsr node to achieve anyother
 
@@ -399,7 +399,7 @@ if __name__ == "__main__":
                 outies.add(node)
         totalpath.remove_nodes_from(outies)
 
-        plot_graph(tmp, "y-")
+        #plot_graph(tmp, "y-")
 
         # for edge in to_totalpath:
         #      plot_line(edge[0],edge[1],"-y")
