@@ -3,7 +3,6 @@ from Libraries.euclidNEW import *
 import matplotlib.pyplot as plt
 import numpy as np
 import networkx as nx
-from Libraries.buffer import Buffer_LineSegment2
 from tkinter import *
 from tkinter.ttk import *
 from tkinter import messagebox
@@ -126,7 +125,6 @@ def indicazioni(minPath):
                 xmedio=(minPath[i - 1][0]+minPath[i][0])/2
                 ymedio=(minPath[i - 1][1]+minPath[i][1])/2
                 minPath.insert(1, Point2(xmedio, ymedio))
-
 
         for i in range(len(minPath) - 2):
             p1 = Point2(minPath[i][0], minPath[i][1])
