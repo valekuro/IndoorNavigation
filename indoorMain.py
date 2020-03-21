@@ -407,7 +407,6 @@ if __name__ == "__main__":
         plot_graph(totalpath, "b-")
 
         plt.savefig('vis.png')
-
         Al.nodes_room=nodes_room
         Al.totalpath=totalpath
         Al.startPoint()
