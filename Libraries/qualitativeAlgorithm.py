@@ -109,12 +109,25 @@ def plotMinPath(minPath, *args):
 def indicazioni(minPath):
     acc_angolo = 0
     mem_next = FALSE
+    print(minPath)
     mem_svolta_stanza = []
     # per trovare l'angolo si utilizza la formula tra vettori: cos(teta)=(uv)/|u|*|v|
-    if len(minPath) >= 3:
-        listaIndicazioni = []
+    listaIndicazioni = []
+    sinonimiPercorsoLungoDritto = ['go straight on for about ', 'still advances for about ', 'still walks for ']
+    sinonimiPercorsoBreveDritto = ['take a few steps ', 'advance a little ', 'continue a little ']
+
+
+    if len(minPath) > 1:
+
         aux = []
         idx = 0
+        if len(minPath) == 2:
+            for i in range(len(minPath) - 1):
+                xmedio=(minPath[i - 1][0]+minPath[i][0])/2
+                ymedio=(minPath[i - 1][1]+minPath[i][1])/2
+                minPath.insert(1, Point2(xmedio, ymedio))
+
+
         for i in range(len(minPath) - 2):
             p1 = Point2(minPath[i][0], minPath[i][1])
             p2 = Point2(minPath[i + 1][0], minPath[i + 1][1])
@@ -165,8 +178,7 @@ def indicazioni(minPath):
                                 mem_next = TRUE;
 
             textSinonimi = randint(0, 2)
-            sinonimiPercorsoLungoDritto = ['go straight on for about ', 'still advances for about ', 'still walks for ']
-            sinonimiPercorsoBreveDritto = ['take a few steps ', 'advance a little ', 'continue a little ']
+            print("ANGOLO", angolo)
             if angolo > 22.5:
                 angolo = angolo + acc_angolo
             if angolo >= 0 and angolo <= 22.5:
@@ -198,6 +210,7 @@ def indicazioni(minPath):
             if i == 0:
                 listaIndicazioni.append(aux)
                 idx = 1
+                print(aux)
                 if ('turn slightly left ' == aux[0]) or (
                         'turn slightly right ' == aux[0]) or ('turn right ' == aux[0]) or (
                         'turn left ' == aux[0]):
@@ -292,6 +305,7 @@ def indicazioni(minPath):
                             aux = ['you will find the destination in front of you', 0, ['']]
 
                         listaIndicazioni.append(aux)
+
     graficaIndicazioni(listaIndicazioni)
 
 
