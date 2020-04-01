@@ -198,7 +198,7 @@ if __name__ == "__main__":
         # construction of adjacency matrix to map doors with rooms
 
         #doors = [(3, -1), (8, -3)]
-        doors = Al.inserisciPorte();
+        doors = Al.inserisciPorte()
         adj_mat = []
         for door in doors:
             p = Point2(door[0], door[1])
@@ -255,9 +255,9 @@ if __name__ == "__main__":
         # merge all room_graph in a single graph and update node data to
         # know the room where is it
         #VALENTINA
-        # for network in networks:
-        #     for node in network.nodes():
-        #         network.add_node(node, room=[network.graph['room']])
+        for network in networks:
+             for node in network.nodes():
+                 network.add_node(node, room=[network.graph['room']])
 
         global totalpath
 
@@ -279,6 +279,8 @@ if __name__ == "__main__":
 
         nodes_room = nx.get_node_attributes(totalpath, 'room')
 
+        # for node in nodes_room:
+        #      print(nodes_room)
 
         #function to insert two line instead one line where is a door
         #to simulate space visibility
@@ -314,21 +316,21 @@ if __name__ == "__main__":
                 # it check edge intersection of nodes that stay in the same room
                 if len(room_list_node[node_room]) == 1 and len(room_list_node[nd_room]) == 1 and \
                         room_list_node[nd_room][0] == room_list_node[node_room][0]:
-                    visibility_check(node_room, nd_room, euc_rooms[room_list_node[node_room][0]]) #same room
-                elif len(room_list_node[node_room]) == 2 and len(room_list_node[nd_room]) == 1:   #node_room is a door
-                        if room_list_node[node_room][0] == room_list_node[nd_room][0]:
-                          visibility_check(node_room, nd_room, euc_rooms[room_list_node[node_room][0]])
-                        if room_list_node[node_room][1] == room_list_node[nd_room][0]:
-                          visibility_check(node_room, nd_room, euc_rooms[room_list_node[node_room][1]])
+                    visibility_check(node_room, nd_room, euc_rooms[room_list_node[node_room][0]])  # same room
+                elif len(room_list_node[node_room]) == 2 and len(room_list_node[nd_room]) == 1:  # node_room is a door
+                    if room_list_node[node_room][0] == room_list_node[nd_room][0]:
+                        visibility_check(node_room, nd_room, euc_rooms[room_list_node[node_room][0]])
+                    if room_list_node[node_room][1] == room_list_node[nd_room][0]:
+                        visibility_check(node_room, nd_room, euc_rooms[room_list_node[node_room][1]])
                 elif len(room_list_node[node_room]) == 2 and len(room_list_node[nd_room]) == 2:
-                        if room_list_node[node_room][0] == room_list_node[nd_room][0]:
-                          visibility_check(node_room, nd_room, euc_rooms[room_list_node[node_room][0]])
-                        if room_list_node[node_room][1] == room_list_node[nd_room][0]:
-                          visibility_check(node_room, nd_room, euc_rooms[room_list_node[node_room][1]])
-                        if room_list_node[node_room][0] == room_list_node[nd_room][1]:
-                          visibility_check(node_room, nd_room, euc_rooms[room_list_node[node_room][0]])
-                        if room_list_node[node_room][1] == room_list_node[nd_room][1]:
-                          visibility_check(node_room, nd_room, euc_rooms[room_list_node[node_room][1]])
+                    if room_list_node[node_room][0] == room_list_node[nd_room][0]:
+                        visibility_check(node_room, nd_room, euc_rooms[room_list_node[node_room][0]])
+                    if room_list_node[node_room][1] == room_list_node[nd_room][0]:
+                        visibility_check(node_room, nd_room, euc_rooms[room_list_node[node_room][1]])
+                    if room_list_node[node_room][0] == room_list_node[nd_room][1]:
+                        visibility_check(node_room, nd_room, euc_rooms[room_list_node[node_room][0]])
+                    if room_list_node[node_room][1] == room_list_node[nd_room][1]:
+                        visibility_check(node_room, nd_room, euc_rooms[room_list_node[node_room][1]])
 
         # now we want to filter the visibility edge that intersect skeleton graph (in this case totalgraph)
 
@@ -350,7 +352,7 @@ if __name__ == "__main__":
         tmp=nx.Graph()
 
         for edge in to_totalpath:
-             totalpath.add_edge(edge[0], edge[1])
+             tmp.add_edge(edge[0], edge[1])
 
 
 # filter visibility graph throught buffers on euc_rooms
@@ -385,7 +387,7 @@ if __name__ == "__main__":
 
         for edge in ondelete:
             # print(ind)
-            totalpath.remove_edge(edge[0], edge[1])
+            tmp.remove_edge(edge[0], edge[1])
 
 # delete nodes not achievable,main door is the firsr node to achieve anyother
 
@@ -399,16 +401,16 @@ if __name__ == "__main__":
                 outies.add(node)
         totalpath.remove_nodes_from(outies)
 
-        #plot_graph(tmp, "y-")
 
-        # for edge in to_totalpath:
-        #      plot_line(edge[0],edge[1],"-y")
+        tmp=nx.compose(tmp,totalpath)
 
-        plot_graph(totalpath, "b-")
+        plot_graph(tmp, "b-")
+
+        #plt.show()
 
         plt.savefig('vis.png')
         Al.nodes_room=nodes_room
-        Al.totalpath=totalpath
+        Al.totalpath=tmp
         Al.startPoint()
 
 main()
