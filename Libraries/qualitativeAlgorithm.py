@@ -3,10 +3,12 @@ from Libraries.euclidNEW import *
 import matplotlib.pyplot as plt
 import numpy as np
 import networkx as nx
+from Libraries.buffer import Buffer_LineSegment2
 from tkinter import *
 from tkinter.ttk import *
 from tkinter import messagebox
 from random import *
+
 
 nodes_room = []
 totalpath = []
@@ -30,7 +32,6 @@ def inserisciMappa():
     room6 = [[(4, 3), (2, 3), (2, 2), (4, 1)]]
     room7 = [[(6, 3), (6, 1), (8, 2), (8, 3)]]
     room8 = [[(8, 3), (8, 5), (6, 5), (6, 3)], [(6.75, 4.75), (7.25, 4.75), (7.25, 3.25), (6.75, 3.25)]]
-
     rooms = [room1, room2, room3, room4, room5, room6, room7, room8]
 
     # room4 = [[(3, 0), (6, 0), (6, 1), (4, 1), (4, 2), (8, 2), (8, 4), (4, 4), (4, 5), (3, 5)]]
@@ -124,6 +125,7 @@ def indicazioni(minPath):
                 xmedio=(minPath[i - 1][0]+minPath[i][0])/2
                 ymedio=(minPath[i - 1][1]+minPath[i][1])/2
                 minPath.insert(1, Point2(xmedio, ymedio))
+
 
         for i in range(len(minPath) - 2):
             p1 = Point2(minPath[i][0], minPath[i][1])
