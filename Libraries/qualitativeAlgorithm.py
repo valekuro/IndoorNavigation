@@ -375,8 +375,7 @@ def test():
                              "The starting point and the arrival point are the same! Unable to calculate a route!")
     else:
         assegnaNomeStanze()
-        # poichè nel caso in esame non sono importanti i pesi, esso viene imposto ad uno
-        percorso1 = nx.dijkstra_path(totalpath, a[0][0], b[0][0], 1)
+        percorso1 = nx.dijkstra_path(totalpath, a[0][0], b[0][0])
 
         for u in range(len(percorso1) - 1):
             xP1 = round(percorso1[u].x, 2)
