@@ -108,12 +108,12 @@ if __name__ == "__main__":
 
     # function that check the visibilty between two node
     def visibility_check(first_node, second_node, euc_room):
-          intsect = False
-          for poly in euc_room:
+         intsect = False
+         for poly in euc_room:
             for wall in poly:
-                if wall.intersect(LineSegment2(first_node, second_node)) is not None:
+                if wall.intersect(LineSegment2(first_node, second_node)) is not None :
                     intsect = True
-          if not intsect:
+         if not intsect:
                 to_totalpath.append((first_node, second_node))
 
 
@@ -352,7 +352,7 @@ if __name__ == "__main__":
         tmp=nx.Graph()
 
         for edge in to_totalpath:
-             tmp.add_edge(edge[0], edge[1])
+             tmp.add_edge(edge[0], edge[1],weight=abs(edge[0]-edge[1]))
 
 
 # filter visibility graph throught buffers on euc_rooms
@@ -400,7 +400,6 @@ if __name__ == "__main__":
             except nx.exception.NetworkXNoPath as ne:
                 outies.add(node)
         totalpath.remove_nodes_from(outies)
-
 
         tmp=nx.compose(tmp,totalpath)
 
