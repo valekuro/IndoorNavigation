@@ -1,6 +1,6 @@
 # IndoorNavigation
 
-1) Import the project with an IDE (we recommend to use PyCharm IDE, python version 3.6, PIP version 19.0.3):
+1) Import the project with an IDE (we recommend to use PyCharm IDE, Python version 3.6, PIP version 19.0.3):
 	- in setting -> project interpreter --> add matplotlib, easytkinter, networkx 
 2) To change map, use the following functions situated in qualitativeAlgorithm module:
 	- inserisciMappa() --> insert here the map 
