@@ -374,12 +374,14 @@ def graficaIndicazioni(listaIndicazioni):
     windowPath = Tk()
     windowPath.title("Route")
     # finestra.geometry("%dx%d+%d+%d" % (WIDTH, HEIGHT, X, Y))  # anche posizione
-    windowPath.geometry("%dx%d+%d+%d" % (600, 300, 800, 200))  # anche posizione
+    windowPath.geometry("%dx%d+%d+%d" % (600, 400, 800, 200))  # anche posizione
     windowPath.wm_iconbitmap("Icons\corsa.ico")
-    indic = Label(windowPath, text='start navigation...', font=("Arial Bold", 15))
-    indic.pack(side="top")
+    Label(windowPath, text='start navigation... \n', font=("Arial Bold", 15)).grid(row=0, sticky='nw')
     str_test = ""
+    i=0
     for element in listaIndicazioni:
+        i=i+1
+        print(i)
         newElement = int(element[1])
         if newElement >= 1:
             testoRicostruito = element[0] + str(newElement) + ' mt'
@@ -395,17 +397,12 @@ def graficaIndicazioni(listaIndicazioni):
 
         str_test = str_test + testoRicostruito + "\n"
         if element == listaIndicazioni[-1]:
-            indic = Label(windowPath, text=testoRicostruito + "!", font=("Arial Bold", 15))
-            indic.pack(side="top")
+            Label(windowPath, text=testoRicostruito + "! \n", font=("Arial Bold", 15)).grid(row=i, sticky='nw')
         else:
-            indic = Label(windowPath, text=testoRicostruito, font=("Arial Bold", 10))
-            indic.pack(side="top")
-
-    auth = Label(windowPath, text="Valentina DOrazio & Andrea Pagliaro", font=("Arial", 4))
-    auth.pack(side="bottom")
-    plt.text(-1, -1, 'Valentina DOrazio & Andrea Pagliaro', fontsize=4)
+            Label(windowPath, text=testoRicostruito, font=("Arial Bold", 10)).grid(row=i, sticky='nw')
     plt.show()
     windowPath.mainloop()
+
 
 
 def calcoloAngoloOrientamentoEsegno(p1, p2, p3):
