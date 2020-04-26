@@ -376,10 +376,11 @@ def graficaIndicazioni(listaIndicazioni):
     # finestra.geometry("%dx%d+%d+%d" % (WIDTH, HEIGHT, X, Y))  # anche posizione
     windowPath.geometry("%dx%d+%d+%d" % (600, 400, 800, 200))  # anche posizione
     windowPath.wm_iconbitmap("Icons\corsa.ico")
-    Label(windowPath, text='start navigation... \n', font=("Arial Bold", 15)).grid(row=0, sticky='nw')
+    Label(windowPath, text='start navigation... \n', font=("Arial Bold", 15)).grid(row=0, column=1, sticky='nw')
     str_test = ""
     i=0
     for element in listaIndicazioni:
+        canv = Canvas(windowPath, width=10, height=10, bg='#FFFFFF')  # (10)
         i=i+1
         print(i)
         newElement = int(element[1])
@@ -395,11 +396,15 @@ def graficaIndicazioni(listaIndicazioni):
                 else:
                     testoRicostruito = testoRicostruito + ' and ' + str(element[2][office][0])
 
-        str_test = str_test + testoRicostruito + "\n"
+        str_test = str_test + testoRicostruito
         if element == listaIndicazioni[-1]:
-            Label(windowPath, text=testoRicostruito + "! \n", font=("Arial Bold", 15)).grid(row=i, sticky='nw')
+            canv.create_line((10, 0, 10, 400), fill="green", width=10)  # (32)
+            canv.grid(row=i, column=0, sticky='w')
+            Label(windowPath, text=testoRicostruito + "!", font=("Arial Bold", 15)).grid(row=i, column=1, sticky='nw')
         else:
-            Label(windowPath, text=testoRicostruito, font=("Arial Bold", 10)).grid(row=i, sticky='nw')
+            canv.create_line((10,0, 10, 400), fill="green", width=10)  # (32)
+            canv.grid(row=i, column=0, sticky='w')
+            Label(windowPath, text=testoRicostruito, font=("Arial Bold", 10)).grid(row=i, column=1, sticky='nw')
     plt.show()
     windowPath.mainloop()
 
