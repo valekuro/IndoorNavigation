@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import networkx as nx
 from Libraries.buffer import Buffer_LineSegment2
-from Libraries import qualitativeAlgorithm as Al
+from Libraries import qualitativeAlgorithmExample1 as Al
 
 if __name__ == "__main__":
 
