@@ -144,23 +144,18 @@ def indicazioni(minPath):
                 distanzaCentroCirconferenzaNodo = np.sqrt(
                     (minPath[i + 2 - sub].x - stanza.x) ** 2 + (minPath[i + 2 - sub].y - stanza.y) ** 2)
 
-                if distanzaCentroCirconferenzaNodo < 1.8 and distanzaCentroCirconferenzaNodo > 0:
+                if distanzaCentroCirconferenzaNodo < 1.2 and distanzaCentroCirconferenzaNodo > 0:
                     for nomeStanza in coordinateStanze:
                         if nomeStanza[0] == stanza and stanza != b[0][0] and stanza != a[0][0]:
                             angoloEsegno2 = calcoloAngoloOrientamentoEsegno(p2, p3, stanza)
+                            print(nomeStanza)
                             if angoloEsegno2[1] > 0:
                                 indicazione = nomeStanza[1] + " on your right"
                             elif angoloEsegno2[1] < 0:
                                 indicazione = nomeStanza[1] + " on your left"
 
                             if angoloEsegno2[0] >= 90:
-                                # se il nome della stanza già esiste lo mette in indice e non si deve fare l'append.
-                                # se indice non esiste, mi torna un'errore con il value errore aggiungo alla lista
-                                # delle stanxe da sorpassare, il nome stanza da sorpassare e questo per non far ripetere
-                                # le stanze. In pratica faccio l'append solo se va in errore
-
                                 try:
-
                                     indice = ufficiSuperati.index(nomeStanza[1])
                                     testoNomeStanza = []
                                 except ValueError:
@@ -219,7 +214,7 @@ def indicazioni(minPath):
                 idx = idx + 1
             else:
                 if i != (len(minPath) - 3):
-                    #print(aux)
+                    print(aux)
                     if ((listaIndicazioni[idx - 1][0] in sinonimiPercorsoLungoDritto) and (
                             aux[0] in sinonimiPercorsoLungoDritto)) or (
                             (listaIndicazioni[idx - 1][0] in sinonimiPercorsoBreveDritto) and (
@@ -302,8 +297,26 @@ def indicazioni(minPath):
                     # qui
 
                 else:
-                    listaIndicazioni.append(aux)
-                    #print(aux)
+                    if ((listaIndicazioni[idx - 1][0] in sinonimiPercorsoLungoDritto) and (
+                            aux[0] in sinonimiPercorsoLungoDritto)) or (
+                            (listaIndicazioni[idx - 1][0] in sinonimiPercorsoBreveDritto) and (
+                            aux[0] in sinonimiPercorsoBreveDritto)) or (
+                            (listaIndicazioni[idx - 1][0] in sinonimiPercorsoLungoDritto) and (
+                            aux[0] in sinonimiPercorsoBreveDritto)) or (
+                            (listaIndicazioni[idx - 1][0] in sinonimiPercorsoBreveDritto) and (
+                            aux[0] in sinonimiPercorsoLungoDritto)
+                    ):
+                        listaIndicazioni[idx - 1][1] = listaIndicazioni[idx - 1][1] + aux[1]
+                        if ((listaIndicazioni[idx - 1][0] in sinonimiPercorsoBreveDritto) and (
+                                aux[0] in sinonimiPercorsoLungoDritto)) or listaIndicazioni[idx - 1][1] > 1:
+                            listaIndicazioni[idx - 1][0] = str(sinonimiPercorsoLungoDritto[textSinonimi])
+                        if len(testoNomeStanza) > 0:
+                            if len(listaIndicazioni[idx - 1][2][0]) == 0:
+                                listaIndicazioni[idx - 1][2] = [testoNomeStanza]
+                            else:
+                                listaIndicazioni[idx - 1][2].append(testoNomeStanza)
+                    # listaIndicazioni.append(aux)
+                    print('else  ', aux)
                     #print("min - 3")
                     if angolo > 40 and mtDec<2:
                         if segno > 0:
@@ -314,7 +327,6 @@ def indicazioni(minPath):
                         aux = ['you will find the destination in front of you', 0, ['']]
 
                     listaIndicazioni.append(aux)
-
     graficaIndicazioni(listaIndicazioni)
 
 
