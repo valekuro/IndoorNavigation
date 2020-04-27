@@ -1,5 +1,5 @@
 from Libraries import polyskel
-from Libraries.euclidNEW import *
+from Libraries.euclid import *
 import matplotlib.pyplot as plt
 import numpy as np
 import networkx as nx
