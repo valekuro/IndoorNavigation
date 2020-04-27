@@ -1671,14 +1671,15 @@ def _intersect_line2_line2(A, B):
     if d == 0:
         points=[]
         if A.intersect(B.p1):
-            points.append(A.intersect(B.p1))
+            points.append(B.p1)
         elif A.intersect(B.p2):
-            points.append(A.intersect(B.p2))
+            points.append(B.p2)
         elif B.intersect(A.p1):
-            points.append(B.intersect(A.p1))
+            points.append(A.p1)
         elif B.intersect(A.p2):
-            points.append(B.intersect(A.p2))
+            points.append(A.p2)
         if len(points) == 1 :
+            #print(points)
             return points[0]
         elif len(points) == 2 :
             return LineSegment2(points[0],points[1])
