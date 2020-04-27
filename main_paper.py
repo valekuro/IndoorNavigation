@@ -106,12 +106,10 @@ if __name__ == "__main__":
 
     # function that check the visibilty between two node
     def visibility_check(first_node, second_node, euc_room):
-        #VALENTINA
         d = nx.dijkstra_path_length(totalpath, first_node, second_node, weight='weight')
         d1 = abs(first_node - second_node)
         # print(d,d1,nd_room,node_room)
         if d > d1:
-        #VALENTINA
           intsect = False
           for poly in euc_room:
             for wall in poly:

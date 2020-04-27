@@ -120,7 +120,7 @@ def indicazioni(minPath):
             p2 = Point2(minPath[i + 1][0], minPath[i + 1][1])
             p3 = Point2(minPath[i + 2][0], minPath[i + 2][1])
             # print("punti")
-            print(p1, p2, p3)
+            #print(p1, p2, p3)
             angoloEsegno = calcoloAngoloOrientamentoEsegno(p1, p2, p3)
             angolo = angoloEsegno[0]
             segno = angoloEsegno[1]
@@ -144,30 +144,35 @@ def indicazioni(minPath):
                 distanzaCentroCirconferenzaNodo = np.sqrt(
                     (minPath[i + 2 - sub].x - stanza.x) ** 2 + (minPath[i + 2 - sub].y - stanza.y) ** 2)
 
-                if distanzaCentroCirconferenzaNodo < 1.2 and distanzaCentroCirconferenzaNodo > 0:
+                if distanzaCentroCirconferenzaNodo < 1.5 and distanzaCentroCirconferenzaNodo > 0:
                     for nomeStanza in coordinateStanze:
                         if nomeStanza[0] == stanza and stanza != b[0][0] and stanza != a[0][0]:
                             angoloEsegno2 = calcoloAngoloOrientamentoEsegno(p2, p3, stanza)
-                            print(nomeStanza)
+
+
                             if angoloEsegno2[1] > 0:
                                 indicazione = nomeStanza[1] + " on your right"
                             elif angoloEsegno2[1] < 0:
                                 indicazione = nomeStanza[1] + " on your left"
 
+
+
                             if angoloEsegno2[0] >= 90:
+
                                 try:
                                     indice = ufficiSuperati.index(nomeStanza[1])
                                     testoNomeStanza = []
+
                                 except ValueError:
                                     ufficiSuperati.append(nomeStanza[1])
-                                    if (i < (len(minPath) - 4)):
+                                    if (i < (len(minPath) - 2)):
                                         testoNomeStanza.append(indicazione)
+                                    print("testonomemstanza   ", testoNomeStanza)
                                 break
+
                             elif angoloEsegno2[0] < 90:
                                 mem_next = TRUE;
             textSinonimi = randint(0, 2)
-            # print("ANGOLO", angolo)
-            print("testoNomeStanza   ", testoNomeStanza)
             if angolo > 22.5:
                 angolo = angolo + acc_angolo
             if angolo >= 0 and angolo <= 22.5:
@@ -187,20 +192,17 @@ def indicazioni(minPath):
 
                     aux = ['turn slightly left ', 0, [testoNomeStanza]]
 
-            elif angolo > 67.5 and angolo <= 136:
+            elif angolo > 67.5 and angolo <= 147:
                 acc_angolo = angolo
-                #print("angolo", angolo)
-                #print("acc angolo", acc_angolo)
                 if segno > 0:
                     aux = ['turn right ', 0, ['']]
 
                 elif segno < 0:
                     aux = ['turn left ', 0, ['']]
 
+            print("angolo   ", angolo)
             if i == 0:
 
-                #listaIndicazioni.append(aux)
-                #idx = 1
                 aux1 = aux
                 if ('turn slightly left ' == aux[0]) or (
                         'turn slightly right ' == aux[0]) or ('turn right ' == aux[0]) or (
@@ -215,7 +217,6 @@ def indicazioni(minPath):
                 idx = idx + 1
             else:
                 if i != (len(minPath) - 3):
-                    print(aux)
                     if ((listaIndicazioni[idx - 1][0] in sinonimiPercorsoLungoDritto) and (
                             aux[0] in sinonimiPercorsoLungoDritto)) or (
                             (listaIndicazioni[idx - 1][0] in sinonimiPercorsoBreveDritto) and (
@@ -234,6 +235,8 @@ def indicazioni(minPath):
                                 listaIndicazioni[idx - 1][2] = [testoNomeStanza]
                             else:
                                 listaIndicazioni[idx - 1][2].append(testoNomeStanza)
+
+
                     elif (aux[0] == 'turn slightly left ' and (
                             listaIndicazioni[idx - 1][0] in sinonimiPercorsoBreveDritto) and listaIndicazioni[idx - 2][
                               0] == 'turn left ') or (
@@ -274,11 +277,11 @@ def indicazioni(minPath):
                                     (aux[0] == 'turn right ' and (
                                             listaIndicazioni[idx - 1][0] in sinonimiPercorsoLungoDritto)))
                     ):
+
                         if mtDec >= 1.0:
                             idx = idx + 1
                             listaIndicazioni.append(
                                       [str(aux[0] + "and " + sinonimiPercorsoLungoDritto[textSinonimi]), mt, [testoNomeStanza]])
-
 
                     else:
 
@@ -295,30 +298,10 @@ def indicazioni(minPath):
                             listaIndicazioni.append(aux)
                             idx = idx + 1
 
-                    # qui
-
                 else:
-                    if ((listaIndicazioni[idx - 1][0] in sinonimiPercorsoLungoDritto) and (
-                            aux[0] in sinonimiPercorsoLungoDritto)) or (
-                            (listaIndicazioni[idx - 1][0] in sinonimiPercorsoBreveDritto) and (
-                            aux[0] in sinonimiPercorsoBreveDritto)) or (
-                            (listaIndicazioni[idx - 1][0] in sinonimiPercorsoLungoDritto) and (
-                            aux[0] in sinonimiPercorsoBreveDritto)) or (
-                            (listaIndicazioni[idx - 1][0] in sinonimiPercorsoBreveDritto) and (
-                            aux[0] in sinonimiPercorsoLungoDritto)
-                    ):
-                        listaIndicazioni[idx - 1][1] = listaIndicazioni[idx - 1][1] + aux[1]
-                        if ((listaIndicazioni[idx - 1][0] in sinonimiPercorsoBreveDritto) and (
-                                aux[0] in sinonimiPercorsoLungoDritto)) or listaIndicazioni[idx - 1][1] > 1:
-                            listaIndicazioni[idx - 1][0] = str(sinonimiPercorsoLungoDritto[textSinonimi])
-                        if len(testoNomeStanza) > 0:
-                            if len(listaIndicazioni[idx - 1][2][0]) == 0:
-                                listaIndicazioni[idx - 1][2] = [testoNomeStanza]
-                            else:
-                                listaIndicazioni[idx - 1][2].append(testoNomeStanza)
-                    # listaIndicazioni.append(aux)
-                    print('else  ', aux)
-                    #print("min - 3")
+                    #listaIndicazioni.append(aux)
+
+                    listaIndicazioni = gestioneRettilineiContinui(aux, listaIndicazioni, idx, testoNomeStanza, sinonimiPercorsoLungoDritto, sinonimiPercorsoBreveDritto, textSinonimi)
                     if angolo > 40 and mtDec<2:
                         if segno > 0:
                             aux = ['your destination will be on the right', 0, ['']]
@@ -328,8 +311,32 @@ def indicazioni(minPath):
                         aux = ['you will find the destination in front of you', 0, ['']]
 
                     listaIndicazioni.append(aux)
+                print("AUX   ", aux)
     graficaIndicazioni(listaIndicazioni)
 
+
+def gestioneRettilineiContinui(aux, listaIndicazioni, idx, testoNomeStanza, sinonimiPercorsoLungoDritto, sinonimiPercorsoBreveDritto, textSinonimi):
+    if ((listaIndicazioni[idx - 1][0] in sinonimiPercorsoLungoDritto) and (
+            aux[0] in sinonimiPercorsoLungoDritto)) or (
+            (listaIndicazioni[idx - 1][0] in sinonimiPercorsoBreveDritto) and (
+            aux[0] in sinonimiPercorsoBreveDritto)) or (
+            (listaIndicazioni[idx - 1][0] in sinonimiPercorsoLungoDritto) and (
+            aux[0] in sinonimiPercorsoBreveDritto)) or (
+            (listaIndicazioni[idx - 1][0] in sinonimiPercorsoBreveDritto) and (
+            aux[0] in sinonimiPercorsoLungoDritto)
+    ):
+        listaIndicazioni[idx - 1][1] = listaIndicazioni[idx - 1][1] + aux[1]
+        if ((listaIndicazioni[idx - 1][0] in sinonimiPercorsoBreveDritto) and (
+                aux[0] in sinonimiPercorsoLungoDritto)) or listaIndicazioni[idx - 1][1] > 1:
+            listaIndicazioni[idx - 1][0] = str(sinonimiPercorsoLungoDritto[textSinonimi])
+        if len(testoNomeStanza) > 0:
+            if len(listaIndicazioni[idx - 1][2][0]) == 0:
+                listaIndicazioni[idx - 1][2] = [testoNomeStanza]
+            else:
+                listaIndicazioni[idx - 1][2].append(testoNomeStanza)
+    else:
+        listaIndicazioni.append(aux)
+    return listaIndicazioni
 
 def graficaIndicazioni(listaIndicazioni):
     # finestra percorso
@@ -345,7 +352,6 @@ def graficaIndicazioni(listaIndicazioni):
     for element in listaIndicazioni:
         canv = Canvas(windowPath, width=10, height=10, bg='#FFFFFF')  # (10)
         i=i+1
-        print(i)
         newElement = int(element[1])
         if newElement >= 1:
             testoRicostruito = element[0] + str(newElement) + ' mt'
