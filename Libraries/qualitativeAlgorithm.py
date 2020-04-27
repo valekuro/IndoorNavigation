@@ -259,10 +259,11 @@ def indicazioni(minPath):
                 if ('turn slightly left ' == aux[0]) or (
                         'turn slightly right ' == aux[0]) or ('turn right ' == aux[0]) or (
                         'turn left ' == aux[0]):
+
                     if mtDec >= 1.0:
-                        aux = [str(sinonimiPercorsoLungoDritto[textSinonimi]), mt, [testoNomeStanza]]
+                        aux = [str(sinonimiPercorsoLungoDritto[textSinonimi]), mt, ['']]
                     else:
-                        aux = [str(sinonimiPercorsoBreveDritto[textSinonimi]), 0, [testoNomeStanza]]
+                        aux = [str(sinonimiPercorsoBreveDritto[textSinonimi]), 0, ['']]
                     listaIndicazioni.append(aux)
                     idx = 1
                 listaIndicazioni.append(aux1)

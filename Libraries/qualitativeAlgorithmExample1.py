@@ -167,6 +167,7 @@ def indicazioni(minPath):
                                 mem_next = TRUE;
             textSinonimi = randint(0, 2)
             # print("ANGOLO", angolo)
+            print("testoNomeStanza   ", testoNomeStanza)
             if angolo > 22.5:
                 angolo = angolo + acc_angolo
             if angolo >= 0 and angolo <= 22.5:
