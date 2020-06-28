@@ -1,3 +1,5 @@
+#file relativo alla piantina iniziale
+
 from Libraries import polyskel
 from Libraries.euclid import *
 import matplotlib.pyplot as plt
@@ -167,7 +169,6 @@ def indicazioni(minPath):
                                     ufficiSuperati.append(nomeStanza[1])
                                     if (i < (len(minPath) - 2)):
                                         testoNomeStanza.append(indicazione)
-                                    print("testonomemstanza   ", testoNomeStanza)
                                 break
 
                             elif angoloEsegno2[0] < 90:
@@ -200,7 +201,6 @@ def indicazioni(minPath):
                 elif segno < 0:
                     aux = ['turn left ', 0, ['']]
 
-            print("angolo   ", angolo)
             if i == 0:
 
                 aux1 = aux
@@ -300,18 +300,24 @@ def indicazioni(minPath):
 
                 else:
                     #listaIndicazioni.append(aux)
-
+                    print(angolo)
                     listaIndicazioni = gestioneRettilineiContinui(aux, listaIndicazioni, idx, testoNomeStanza, sinonimiPercorsoLungoDritto, sinonimiPercorsoBreveDritto, textSinonimi)
-                    if angolo > 40 and mtDec<2:
+                    dest = []
+                    dest.append(searchOfficeFromPoint(b[0][0]))
+                    if angolo > 22.5 and angolo <= 67.5 and mtDec<2:
                         if segno > 0:
-                            aux = ['your destination will be on the right', 0, ['']]
+                            aux = [dest[0]+' will be on the slightly right', 0, ['']]
                         else:
-                            aux = ['your destination will be on the left', 0, ['']]
+                            aux = [dest[0]+' will be on the slightly left', 0, ['']]
+                    elif angolo > 67.5 and angolo <= 210:
+                        if segno > 0:
+                            aux = [dest[0]+' will be on the right', 0, ['']]
+                        else:
+                            aux = [dest[0]+' will be on the left', 0, ['']]
                     else:
-                        aux = ['you will find the destination in front of you', 0, ['']]
+                        aux = ['you will find the '+ dest[0] +' in front of you', 0, ['']]
 
                     listaIndicazioni.append(aux)
-                print("AUX   ", aux)
     graficaIndicazioni(listaIndicazioni)
 
 
@@ -346,7 +352,7 @@ def graficaIndicazioni(listaIndicazioni):
     # finestra.geometry("%dx%d+%d+%d" % (WIDTH, HEIGHT, X, Y))  # anche posizione
     windowPath.geometry("%dx%d+%d+%d" % (600, 400, 800, 200))  # anche posizione
     windowPath.wm_iconbitmap("Icons\corsa.ico")
-    Label(windowPath, text='start navigation... \n', font=("Arial Bold", 15)).grid(row=0, column=1, sticky='nw')
+    Label(windowPath, text='start navigation...', font=("Arial Bold", 15)).grid(row=0, column=1, sticky='nw')
     str_test = ""
     i=0
     for element in listaIndicazioni:
@@ -374,6 +380,7 @@ def graficaIndicazioni(listaIndicazioni):
             canv.create_line((10,0, 10, 400), fill="green", width=10)  # (32)
             canv.grid(row=i, column=0, sticky='w')
             Label(windowPath, text=testoRicostruito, font=("Arial Bold", 10)).grid(row=i, column=1, sticky='nw')
+    #plt.plot(b[0][0].x, b[0][0].y, color="red", marker="o", linewidth=1)
     plt.show()
     windowPath.mainloop()
 
@@ -466,8 +473,16 @@ def callbackFunc2(event):
     b.append(endChoose)
 
 
+
 def searchPointOfOffice(officeNumber):
     offPos = officePosition()
     for row in offPos:
         if row[0] == officeNumber:
             return row[1]
+
+def searchOfficeFromPoint(pointOffice):
+    print(pointOffice)
+    offPos = officePosition()
+    for row in offPos:
+        if row[1] == pointOffice:
+            return row[0]

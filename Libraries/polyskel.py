@@ -6,7 +6,7 @@ Implementation of the straight skeleton algorithm as described by Felkel and Obd
 
 import logging
 import heapq
-from Libraries.euclidNEW import *
+from Libraries.euclid import *
 from itertools import *
 from collections import namedtuple
 

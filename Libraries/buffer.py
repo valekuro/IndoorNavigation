@@ -2,7 +2,7 @@
 
 '''Buffer class to obtain buffer object from LineSegment2 of euclid library'''
 
-from Libraries.euclidNEW import *
+from Libraries.euclid import *
 
 class Buffer_LineSegment2(Geometry):
     __slots__ = ['segment','side1','side2','c1','c2','size']
